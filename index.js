@@ -68,7 +68,6 @@
 
   // generate chapter selection ui
   function createChapterList(playlist, onLinkClick, activeVideoId) {
-    console.log(activeVideoId);
     let list = document.createElement('ul');
 
     playlist.forEach(function(elem, index, array) {
@@ -160,6 +159,16 @@
     };
   }
 
+  function addCss() {
+    let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
+    let head = window.document.getElementsByTagName('body')[0];
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    head.appendChild(link);
+  }
+
   function showOverlay() {
     let container = document.createElement('div');
     container.id = "vts-container";
@@ -219,5 +228,6 @@
     }
   ];
 
+  addCss();
   showOverlay();
 })();
