@@ -55,9 +55,14 @@
       createChapterList(PLAYLIST, playVideo, videoId);
     }
 
+    function stopVideo() {
+      youtubePlayer.stopVideo();
+    }
+
     return {
       cueVideo: cueVideo,
-      playVideo: playVideo
+      playVideo: playVideo,
+      stopVideo: stopVideo
     };
   };
 
@@ -168,9 +173,14 @@
     playerframe.id = "vts-player";
     let chapters = document.createElement('div');
     chapters.id = "vts-chapters";
+
     let closeButton = document.createElement('a');
-    closeButton.href = '#';
+    closeButton.href = '';
     closeButton.className = 'vts-close';
+    closeButton.addEventListener("click", function(event) {
+      event.preventDefault();
+      hideOverlay();
+    });
 
     content.appendChild(playerframe);
     content.appendChild(chapters);
@@ -187,7 +197,8 @@
   }
 
   function hideOverlay() {
-
+    let container = window.document.getElementById("vts-container");
+    window.document.body.removeChild(container);
   }
 
   var PLAYLIST = [

@@ -1,3 +1,7 @@
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 #vts-underlay {
   z-index: 10;
   position: fixed;
@@ -22,12 +26,16 @@
 }
 
 #vts-content {
+  position: relative;
   display: flex;
   flex-direction: row;
   border: 1px solid #FF9419;
   background-color: #FEFCFA;
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.75);
   padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 45px;
+  padding-bottom: 45px;
 }
 
 #vts-chapters ul {
@@ -37,7 +45,6 @@
 }
 
 #vts-chapters li {
-  border: 1px solid black;
   padding: 0.3em;
 }
 
@@ -46,8 +53,8 @@
 /* http://codepen.io/brissmyr/pen/egidw/ */
 .vts-close {
   position: absolute;
-  right: 32px;
-  top: 32px;
+  right: 5px;
+  top: 5px;
   width: 32px;
   height: 32px;
   opacity: 0.3;
