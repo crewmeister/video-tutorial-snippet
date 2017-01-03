@@ -1,5 +1,3 @@
-alert("test vts");
-
 (function() {
   // load YouTube iFrame API
   var loadIframeAPI = function() {
@@ -53,6 +51,8 @@ alert("test vts");
 
     function playVideo(videoId) {
       youtubePlayer.loadVideoById(videoId);
+      console.log(this);
+      createChapterList(PLAYLIST, playVideo, videoId);
     }
 
     return {
@@ -62,13 +62,15 @@ alert("test vts");
   };
 
   // generate chapter selection ui
-  function createUi(playlist, onLinkClick) {
+  function createChapterList(playlist, onLinkClick, activeVideoId) {
+    console.log(activeVideoId);
     let list = document.createElement('ul');
 
     playlist.forEach(function(elem, index, array) {
       let item = document.createElement('li');
+      if (activeVideoId === elem.videoId) item.className = 'active';
       let link = document.createElement('a');
-      link.innerHTML = "<strong>Kapitel:</strong> " + elem.title;
+      link.innerHTML = elem.title;
       link.href = "";
       link.addEventListener("click", function(event) {
         event.preventDefault();
@@ -80,6 +82,7 @@ alert("test vts");
     });
 
     var targetElement = document.getElementById("vts-chapters");
+    targetElement.innerHTML = '';
     targetElement.appendChild(list);
   }
 
@@ -87,7 +90,7 @@ alert("test vts");
   window.onYouTubeIframeAPIReady = function() {
     var actions = createActions();
     var player = createPlayer(PLAYLIST[0].videoId, actions);
-    createUi(PLAYLIST, player.playVideo);
+    createChapterList(PLAYLIST, player.playVideo);
   };
 
   // Analytics functions
@@ -159,13 +162,20 @@ alert("test vts");
     underlay.id = "vts-underlay";
     let overlay = document.createElement('div');
     overlay.id = "vts-overlay";
+    let content = document.createElement('div');
+    content.id = "vts-content";
     let playerframe = document.createElement('div');
     playerframe.id = "vts-player";
     let chapters = document.createElement('div');
     chapters.id = "vts-chapters";
+    let closeButton = document.createElement('a');
+    closeButton.href = '#';
+    closeButton.className = 'vts-close';
 
-    overlay.appendChild(playerframe);
-    overlay.appendChild(chapters);
+    content.appendChild(playerframe);
+    content.appendChild(chapters);
+    content.appendChild(closeButton);
+    overlay.appendChild(content);
     container.appendChild(underlay);
     container.appendChild(overlay);
 
@@ -174,6 +184,10 @@ alert("test vts");
     window.document.body.appendChild(container);
 
     loadIframeAPI();
+  }
+
+  function hideOverlay() {
+
   }
 
   var PLAYLIST = [
@@ -195,4 +209,4 @@ alert("test vts");
   ];
 
   showOverlay();
-});
+})();

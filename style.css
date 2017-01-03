@@ -1,0 +1,71 @@
+#vts-underlay {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+#vts-overlay {
+  z-index: 11;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#vts-content {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #FF9419;
+  background-color: #FEFCFA;
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.75);
+  padding-left: 10px;
+}
+
+#vts-chapters ul {
+  list-style: none;
+  padding-left: 1em;
+  margin: 0;
+}
+
+#vts-chapters li {
+  border: 1px solid black;
+  padding: 0.3em;
+}
+
+
+
+/* http://codepen.io/brissmyr/pen/egidw/ */
+.vts-close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.vts-close:hover {
+  opacity: 1;
+}
+.vts-close:before, .vts-close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.vts-close:before {
+  transform: rotate(45deg);
+}
+.vts-close:after {
+  transform: rotate(-45deg);
+}
