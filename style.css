@@ -36,6 +36,12 @@
 #vts-content section {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  max-width: calc(640px + 25em);
+}
+
+#vts-player {
+  flex: 0 0 640px;
 }
 
 #vts-chapters ul {
@@ -72,6 +78,31 @@
 
 #vts-chapters li.active:hover strong {
   background-color: #cc6d00;
+}
+
+@media screen and (max-width: 959px) {
+  #vts-content section {
+    display: block;
+  }
+
+  #vts-chapters {
+    max-width: 640px;
+  }
+
+  #vts-chapters ul {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  #vts-player {
+    max-width: 100%;
+  }
+}
+
+#vts-chapters {
+  max-height: calc(100vh - 2em);
+  overflow-y: auto;
 }
 
 /* http://codepen.io/brissmyr/pen/egidw/ */
