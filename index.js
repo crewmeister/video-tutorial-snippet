@@ -253,7 +253,7 @@
       analyticsEventLabel: "zelle"
     },
     {
-      title: "Bavaria ipsum dolor sit amet dei unbandig um Godds wujn Sepp sauba da Fünferl Steckerleis Habedehre, dei?",
+      title: "Bavaria ipsum dolor sit amet ",
       videoId: "xRdd7fyO-OY",
       analyticsEventLabel: "bayern"
     },
@@ -268,12 +268,12 @@
       analyticsEventLabel: "computer"
     },
     {
-      title: "Gott mit dir, du Land der Bayern, Heimaterde, Vaterland! Über deinen weiten Gauen walte Seine Segenshand! Er behüte deine Fluren, schirme deiner Städte Bau und erhalte dir die Farben deines Himmels, weiß und blau!",
+      title: "Und erhalte dir die Farben deines Himmels, weiß und blau!",
       videoId: "s7H7p80kZN8",
       analyticsEventLabel: "dj"
     },
     {
-      title: "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
+      title: "Duis autem vel eum iriure dolor",
       videoId: "2pic3FnvUrY",
       analyticsEventLabel: "bvg"
     }
