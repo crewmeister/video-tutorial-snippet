@@ -27,19 +27,21 @@
     });
 
     function onPlayerStateChange(event) {
+      let label = getAnalyticsLabelOfVideoId(videoId);
+
       if (event.data == YT.PlayerState.PLAYING) {
         inPause = false;
-        actions.onVideoPlay(videoId);
+        actions.onVideoPlay(label);
       }
       if (event.data == YT.PlayerState.PAUSED && !inPause) {
         inPause = true;
-        actions.onVideoPause(videoId);
+        actions.onVideoPause(label);
       }
       if (event.data == YT.PlayerState.ENDED) {
-        actions.onVideoEnd(videoId);
+        actions.onVideoEnd(label);
       }
       if (event.data == YT.PlayerState.CUED) {
-        actions.onVideoChange(videoId);
+        actions.onVideoChange(label);
       }
       // onVideoShow, onVideoHide
     }
@@ -49,10 +51,11 @@
       youtubePlayer.cueVideoById(videoId);
     }
 
-    function playVideo(videoId) {
-      youtubePlayer.loadVideoById(videoId);
+    function playVideo(nextVideoId) {
+      videoId = nextVideoId;
+      youtubePlayer.loadVideoById(nextVideoId);
       console.log(this);
-      createChapterList(PLAYLIST, playVideo, videoId);
+      createChapterList(PLAYLIST, playVideo, nextVideoId);
     }
 
     function stopVideo() {
@@ -108,43 +111,43 @@
       ga.apply(this, arguments);
     }
 
-    function onVideoPlay(videoId) {
-      console.log("PLAYING");
+    function onVideoPlay(label) {
+      console.log("PLAYING " + label);
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'play',
-        eventLabel: videoId
+        eventLabel: label
       });
     }
 
-    function onVideoPause(videoId) {
+    function onVideoPause(label) {
       console.log("PAUSE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'pause',
-        eventLabel: videoId
+        eventLabel: label
       });
     }
 
-    function onVideoEnd(videoId) {
+    function onVideoEnd(label) {
       console.log("END");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'end',
-        eventLabel: videoId
+        eventLabel: label
       });
     }
 
-    function onVideoChange(videoId) {
+    function onVideoChange(label) {
       console.log("CHANGE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'change',
-        eventLabel: videoId
+        eventLabel: label
       });
     }
 
@@ -179,6 +182,18 @@
       onOverlayShow: onOverlayShow,
       onOverlayHide: onOverlayHide
     };
+  }
+
+  function getAnalyticsLabelOfVideoId(videoId) {
+    let label;
+
+    PLAYLIST.forEach(function(elem) {
+      if (elem.videoId == videoId) {
+        label = elem.analyticsEventLabel;
+      }
+    });
+
+    return label;
   }
 
   function addCss() {
