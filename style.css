@@ -80,6 +80,11 @@
   background-color: #cc6d00;
 }
 
+#vts-chapters {
+  max-height: calc(100vh - 2em);
+  overflow-y: auto;
+}
+
 @media screen and (max-width: 959px) {
   #vts-content section {
     display: block;
@@ -92,17 +97,16 @@
   #vts-chapters ul {
     padding-left: 0;
   }
+
+  #vts-chapters {
+    max-height: calc(100vh - 360px - 2em);
+  }
 }
 
 @media screen and (max-width: 639px) {
   #vts-player {
     max-width: 100%;
   }
-}
-
-#vts-chapters {
-  max-height: calc(100vh - 2em);
-  overflow-y: auto;
 }
 
 /* http://codepen.io/brissmyr/pen/egidw/ */
