@@ -70,6 +70,9 @@
   color: white;
 }
 
+#vts-chapters li.active:hover strong {
+  background-color: #cc6d00;
+}
 
 /* http://codepen.io/brissmyr/pen/egidw/ */
 .vts-close {
