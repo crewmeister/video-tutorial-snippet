@@ -23,15 +23,19 @@
 
 #vts-content {
   position: relative;
-  display: flex;
-  flex-direction: row;
   border: 1px solid #FF9419;
   background-color: #FEFCFA;
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.75);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 45px;
-  padding-bottom: 45px;
+  padding: 10px;
+}
+
+#vts-content h2 {
+  margin: 0 0 0.5em 0;
+}
+
+#vts-content section {
+  display: flex;
+  flex-direction: row;
 }
 
 #vts-chapters ul {

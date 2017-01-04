@@ -178,10 +178,12 @@
     overlay.id = "vts-overlay";
     let content = document.createElement('div');
     content.id = "vts-content";
+    let section = document.createElement('section');
     let playerframe = document.createElement('div');
     playerframe.id = "vts-player";
     let chapters = document.createElement('div');
     chapters.id = "vts-chapters";
+    let headline = document.createElement('h2');
 
     let closeButton = document.createElement('a');
     closeButton.href = '';
@@ -191,8 +193,12 @@
       hideOverlay();
     });
 
-    content.appendChild(playerframe);
-    content.appendChild(chapters);
+    headline.innerHTML = "Die wichtigsten Funktionen im Überblick";
+
+    section.appendChild(playerframe);
+    section.appendChild(chapters);
+    content.appendChild(headline);
+    content.appendChild(section);
     content.appendChild(closeButton);
     overlay.appendChild(content);
     container.appendChild(underlay);
