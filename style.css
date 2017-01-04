@@ -110,6 +110,34 @@
   }
 }
 
+
+/* animations */
+
+#vts-container.invisible {
+  visibility: hidden;
+}
+
+#vts-underlay {
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.invisible > #vts-underlay {
+  opacity: 0;
+}
+
+#vts-overlay {
+  opacity: 1;
+  transition: scale(1);
+  transition: opacity 0.2s ease-in-out, scale 0.2s ease-in-out;
+}
+
+.invisible > #vts-overlay {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+
 /* http://codepen.io/brissmyr/pen/egidw/ */
 .vts-close {
   position: absolute;

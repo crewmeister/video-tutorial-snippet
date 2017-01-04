@@ -206,9 +206,10 @@
     head.appendChild(link);
   }
 
-  function showOverlay() {
+  function addHtml() {
     let container = document.createElement('div');
     container.id = "vts-container";
+    container.className = "invisible";
     let underlay = document.createElement('div');
     underlay.id = "vts-underlay";
     let overlay = document.createElement('div');
@@ -244,16 +245,25 @@
     console.log(container);
     console.log(document.body);
     window.document.body.appendChild(container);
+  }
 
+  function showOverlay() {
     loadIframeAPI();
+
+    let container = window.document.getElementById("vts-container");
+    container.className = "";
   }
 
   function hideOverlay() {
     let container = window.document.getElementById("vts-container");
-    window.document.body.removeChild(container);
+    container.className = "invisible";
 
     let actions = createActions();
     actions.onOverlayHide();
+
+    setTimeout(function() {
+      window.document.body.removeChild(container);
+    }, 1000);
   }
 
   var PLAYLIST = [
@@ -295,5 +305,6 @@
   ];
 
   addCss();
-  showOverlay();
+  addHtml();
+  setTimeout(showOverlay, 5000);
 })();
