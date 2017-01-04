@@ -49,8 +49,38 @@
   border-bottom: 1px solid #bbbbbb;
 }
 
+#vts-chapters li a, #vts-chapters li a:hover {
+  text-decoration: none;
+}
+
+#vts-chapters li a:hover span {
+  text-decoration: underline;
+}
+
+#vts-chapters li strong:after {
+  content: ':';
+}
+
+#vts-chapters li.active strong:after {
+  content: '';
+}
+
 #vts-chapters li:last-child {
   border-bottom: none;
+}
+
+#vts-chapters li.active strong {
+  background-color: #ff9419;
+  color: white;
+  padding: 0 0.2em;
+}
+
+#vts-chapters li {
+  padding-right: 0.5em;
+}
+
+#vts-chapters li.active {
+  padding-right: 0;
 }
 
 

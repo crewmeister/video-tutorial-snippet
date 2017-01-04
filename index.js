@@ -74,7 +74,7 @@
       let item = document.createElement('li');
       if (activeVideoId === elem.videoId) item.className = 'active';
       let link = document.createElement('a');
-      link.innerHTML = "<strong>Schritt " + (index+1) + ":</strong> " + elem.title;
+      link.innerHTML = "<strong>Schritt " + (index+1) + "</strong> <span>" + elem.title + "</span>";
       link.href = "";
       link.addEventListener("click", function(event) {
         event.preventDefault();
