@@ -95,6 +95,8 @@
     var actions = createActions();
     var player = createPlayer(PLAYLIST[0].videoId, actions);
     createChapterList(PLAYLIST, player.playVideo, PLAYLIST[0].videoId);
+
+    actions.onOverlayShow();
   };
 
   // Analytics functions
@@ -150,12 +152,32 @@
       console.log('player loaded');
     }
 
+    function onOverlayShow() {
+      console.log("OVERLAY SHOWN");
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Videos',
+        eventAction: 'overlay open'
+      });
+    }
+
+    function onOverlayHide() {
+      console.log("OVERLAY HIDDEN");
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Videos',
+        eventAction: 'overlay closed'
+      });
+    }
+
     return {
       onVideoPlay: onVideoPlay,
       onVideoPause: onVideoPause,
       onVideoEnd: onVideoEnd,
       onVideoChange: onVideoChange,
       onPlayerLoaded: onPlayerLoaded,
+      onOverlayShow: onOverlayShow,
+      onOverlayHide: onOverlayHide
     };
   }
 
@@ -214,6 +236,9 @@
   function hideOverlay() {
     let container = window.document.getElementById("vts-container");
     window.document.body.removeChild(container);
+
+    let actions = createActions();
+    actions.onOverlayHide();
   }
 
   var PLAYLIST = [
