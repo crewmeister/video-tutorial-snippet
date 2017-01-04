@@ -300,7 +300,7 @@
       analyticsEventLabel: "dj"
     },
     {
-      title: "Duis autem vel eum iriure dolor",
+      title: "Duis autem vel und so weiter",
       videoId: "2pic3FnvUrY",
       analyticsEventLabel: "bvg"
     }
