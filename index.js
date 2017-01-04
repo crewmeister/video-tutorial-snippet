@@ -94,7 +94,7 @@
   window.onYouTubeIframeAPIReady = function() {
     var actions = createActions();
     var player = createPlayer(PLAYLIST[0].videoId, actions);
-    createChapterList(PLAYLIST, player.playVideo);
+    createChapterList(PLAYLIST, player.playVideo, PLAYLIST[0].videoId);
   };
 
   // Analytics functions
