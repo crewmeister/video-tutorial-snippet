@@ -105,10 +105,12 @@
   // Analytics functions
   function createActions(player) {
     function _ga(args) {
-      if (ga) {
+      try {
+        ga.apply(this, arguments);
+      }
+      catch(e) {
         console.log("Google Analytics is not readily loaded");
       }
-      ga.apply(this, arguments);
     }
 
     function onVideoPlay(label) {
@@ -258,12 +260,12 @@
     let container = window.document.getElementById("vts-container");
     container.className = "invisible";
 
-    let actions = createActions();
-    actions.onOverlayHide();
-
     setTimeout(function() {
       window.document.body.removeChild(container);
-    }, 1000);
+    }, 300);
+
+    let actions = createActions();
+    actions.onOverlayHide();
   }
 
   var PLAYLIST = [
