@@ -36,12 +36,17 @@
 #vts-content section {
   display: flex;
   flex-direction: row;
-  align-items: center;
   max-width: calc(640px + 25em);
 }
 
 #vts-player {
   flex: 0 0 640px;
+  margin: auto;
+}
+
+#vts-chapters {
+  max-height: calc(100vh - 2em);
+  overflow-y: auto;
 }
 
 #vts-chapters ul {
@@ -78,11 +83,6 @@
 
 #vts-chapters li.active:hover strong {
   background-color: #cc6d00;
-}
-
-#vts-chapters {
-  max-height: calc(100vh - 2em);
-  overflow-y: auto;
 }
 
 @media screen and (max-width: 959px) {
