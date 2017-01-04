@@ -41,9 +41,13 @@
 }
 
 #vts-chapters li {
-  padding: 0.3em;
+  padding: 0.4em 0.3em;
+  border-bottom: 1px solid #bbbbbb;
 }
 
+#vts-chapters li:last-child {
+  border-bottom: none;
+}
 
 
 /* http://codepen.io/brissmyr/pen/egidw/ */
