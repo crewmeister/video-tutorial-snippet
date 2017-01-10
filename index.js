@@ -250,8 +250,6 @@
   }
 
   function showOverlay() {
-    loadIframeAPI();
-
     let container = window.document.getElementById("vts-container");
     container.className = "";
   }
@@ -308,5 +306,6 @@
 
   addCss();
   addHtml();
+  setTimeout(loadIframeAPI, 1000);
   setTimeout(showOverlay, 5000);
 })();
