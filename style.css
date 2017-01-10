@@ -44,6 +44,11 @@
   margin: auto;
 }
 
+div#vts-player {
+  width: 640px;
+  height: 360px;
+}
+
 #vts-chapters {
   max-height: calc(100vh - 2em);
   overflow-y: auto;
