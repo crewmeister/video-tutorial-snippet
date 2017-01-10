@@ -7,6 +7,8 @@
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   };
 
+  var player;
+
   // create player instance including YouTube API and analytics integration
   var createPlayer = function(initialVideoId, actions) {
     var inPause = false;
@@ -96,7 +98,7 @@
   // invoked by the YoutTube API after loading
   window.onYouTubeIframeAPIReady = function() {
     var actions = createActions();
-    var player = createPlayer(PLAYLIST[0].videoId, actions);
+    player = createPlayer(PLAYLIST[0].videoId, actions);
     createChapterList(PLAYLIST, player.playVideo, PLAYLIST[0].videoId);
 
     actions.onOverlayShow();
@@ -257,6 +259,8 @@
   function hideOverlay() {
     let container = window.document.getElementById("vts-container");
     container.className = "invisible";
+
+    player.stopVideo();
 
     setTimeout(function() {
       window.document.body.removeChild(container);
