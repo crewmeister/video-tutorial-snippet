@@ -290,6 +290,16 @@
       title: "GPS-Erfassung",
       videoId: "vUPfgAA5Hbw",
       analyticsEventLabel: "VidGps"
+    },
+      {
+      title: "Nutzerrechte und Administratoren",
+      videoId: "5y1RpXP07Gw",
+      analyticsEventLabel: "VidNutzerrechte"
+    },
+      {
+      title: "Excel Export",
+      videoId: "ACbja62motg",
+      analyticsEventLabel: "VidExcel"
     }
   ];
 
