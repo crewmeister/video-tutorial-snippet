@@ -272,39 +272,24 @@
 
   var PLAYLIST = [
     {
-      title: "Crewmeister ist für alle da!11",
+      title: "Zeiten erfassen",
       videoId: "M7lc1UVf-VE",
-      analyticsEventLabel: "intro"
+      analyticsEventLabel: "VidZeitenErfassen"
     },
     {
-      title: "Jede Zelle meines Datenblatts",
+      title: "Mitarbeiter hinzufügen",
       videoId: "MZTjyRu88PRE",
-      analyticsEventLabel: "zelle"
+      analyticsEventLabel: "VidMitarbeiterEinladen"
     },
     {
-      title: "Bavaria ipsum dolor sit amet ",
+      title: "Projekte anlegen",
       videoId: "xRdd7fyO-OY",
-      analyticsEventLabel: "bayern"
+      analyticsEventLabel: "VidGruppen"
     },
     {
-      title: "Zollstock und Datenrock",
+      title: "GPS-Erfassung",
       videoId: "vo5ztSsA_zk",
-      analyticsEventLabel: "zoll"
-    },
-    {
-      title: "Computerbefehl",
-      videoId: "T0ogmRCCH3Q",
-      analyticsEventLabel: "computer"
-    },
-    {
-      title: "Und erhalte dir die Farben deines Himmels, weiß und blau!",
-      videoId: "s7H7p80kZN8",
-      analyticsEventLabel: "dj"
-    },
-    {
-      title: "Duis autem vel und so weiter",
-      videoId: "2pic3FnvUrY",
-      analyticsEventLabel: "bvg"
+      analyticsEventLabel: "VidGps"
     }
   ];
 
