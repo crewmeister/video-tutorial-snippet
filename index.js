@@ -273,22 +273,22 @@
   var PLAYLIST = [
     {
       title: "Zeiten erfassen",
-      videoId: "M7lc1UVf-VE",
+      videoId: "f-4BQVOglbo",
       analyticsEventLabel: "VidZeitenErfassen"
     },
     {
       title: "Mitarbeiter hinzufügen",
-      videoId: "MZTjyRu88PRE",
+      videoId: "xdtgPCYUZtw",
       analyticsEventLabel: "VidMitarbeiterEinladen"
     },
     {
       title: "Projekte anlegen",
-      videoId: "xRdd7fyO-OY",
+      videoId: "mdL0cJ8X1sE",
       analyticsEventLabel: "VidGruppen"
     },
     {
       title: "GPS-Erfassung",
-      videoId: "vo5ztSsA_zk",
+      videoId: "vUPfgAA5Hbw",
       analyticsEventLabel: "VidGps"
     }
   ];
