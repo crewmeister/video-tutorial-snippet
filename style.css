@@ -46,7 +46,7 @@
 
 div#vts-player {
   width: 640px;
-  height: 360px;
+  height: 400px;
 }
 
 #vts-chapters {
@@ -105,7 +105,7 @@ div#vts-player {
   }
 
   #vts-chapters {
-    max-height: calc(100vh - 360px - 2em);
+    max-height: calc(100vh - 400px - 2em);
   }
 }
 

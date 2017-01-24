@@ -19,7 +19,7 @@
         showinfo: 0,
         rel: 0
       },
-      height: '360',
+      height: '400',
       width: '640',
       videoId: videoId,
       events: {
