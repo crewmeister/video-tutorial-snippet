@@ -286,6 +286,11 @@
       videoId: "mdL0cJ8X1sE",
       analyticsEventLabel: "VidGruppen"
     },
+       {
+      title: "Mobile Apps",
+      videoId: "rGo7rdmlssE",
+      analyticsEventLabel: "VidMobile"
+    },
     {
       title: "GPS-Erfassung",
       videoId: "vUPfgAA5Hbw",
