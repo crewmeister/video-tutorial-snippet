@@ -1,4 +1,15 @@
 (function() {
+  function getScriptDataset() {
+    if ("currentScript" in document) {
+      return document.currentScript.dataset;
+    } else {
+      let documentScripts = document.getElementsByTagName('script');
+      let lastScript = documentScripts[documentScripts.length-1];
+      return lastScript.dataset;
+    }
+  }
+  let dataset = getScriptDataset();
+
   // load YouTube iFrame API
   var loadIframeAPI = function() {
     var tag = document.createElement('script');
@@ -121,7 +132,10 @@
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'play',
-        eventLabel: label
+        eventLabel: label,
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
@@ -131,7 +145,10 @@
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'pause',
-        eventLabel: label
+        eventLabel: label,
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
@@ -141,7 +158,10 @@
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'end',
-        eventLabel: label
+        eventLabel: label,
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
@@ -151,7 +171,10 @@
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'change',
-        eventLabel: label
+        eventLabel: label,
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
@@ -164,7 +187,10 @@
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
-        eventAction: 'overlay open'
+        eventAction: 'overlay open',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
@@ -173,7 +199,10 @@
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
-        eventAction: 'overlay closed'
+        eventAction: 'overlay closed',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
       });
     }
 
