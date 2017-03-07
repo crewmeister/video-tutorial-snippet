@@ -337,8 +337,10 @@
     }
   ];
 
+  /*
   addCss();
   addHtml();
   setTimeout(loadIframeAPI, 1000);
   setTimeout(showOverlay, 5000);
+  */
 })();
