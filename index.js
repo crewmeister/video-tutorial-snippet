@@ -19,6 +19,7 @@
   };
 
   var player;
+  var playerHtmlIsAdded = false;
 
   // create player instance including YouTube API and analytics integration
   var createPlayer = function(initialVideoId, actions) {
@@ -230,7 +231,8 @@
   }
 
   function addCss() {
-    let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
+    //let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
+    let url = 'style.css';
     let head = window.document.getElementsByTagName('body')[0];
     let link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -288,15 +290,29 @@
   function hideOverlay() {
     let container = window.document.getElementById("vts-container");
     container.className = "invisible";
-
     player.stopVideo();
-
-    setTimeout(function() {
-      window.document.body.removeChild(container);
-    }, 300);
 
     let actions = createActions();
     actions.onOverlayHide();
+  }
+
+  function addButton() {
+    let container = document.createElement('div');
+    container.id = "vts-button-container";
+
+    let content = document.createElement('div');
+    content.id = "vts-button-content";
+    content.addEventListener("click", function(event) {
+      if(!playerHtmlIsAdded) {
+        loadIframeAPI();
+        addHtml();
+        playerHtmlIsAdded = true;
+      }
+      showOverlay();
+    });
+
+    container.appendChild(content);
+    window.document.body.appendChild(container);
   }
 
   var PLAYLIST = [
@@ -337,10 +353,9 @@
     }
   ];
 
-  /*
   addCss();
-  addHtml();
-  setTimeout(loadIframeAPI, 1000);
-  setTimeout(showOverlay, 5000);
-  */
+  //addHtml();
+  //setTimeout(loadIframeAPI, 1000);
+  //setTimeout(showOverlay, 5000);
+  addButton();
 })();
