@@ -305,6 +305,7 @@
     let outercontainer = document.createElement('div');
     outercontainer.id = "vts-outercontainer";
 
+
     let container = document.createElement('div');
     container.id = "vts-button-container";
 

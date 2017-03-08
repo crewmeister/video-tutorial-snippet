@@ -180,13 +180,21 @@ div#vts-player {
   width: 200px;
   background: grey;
   z-index: 1000000;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(100%)
+}
+
+#vts-outercontainer.animate {
+  transition: transform 1s ease-in;
+}
+#vts-outercontainer.open {
+  transform: translateY(-50%);;
+
 }
 
 #vts-button-container {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 100%;
   transform: translateY(-50%) rotate(-90deg) translate(50%, -50%);
   transform-origin: 100% 50%;
 }
@@ -194,13 +202,10 @@ div#vts-player {
 #vts-button-content {
   cursor: pointer;
   background: #ff9419;
-  margin-bottom: -10px;
-  padding-bottom: 10px;
   border-radius: 7px 7px 0 0;
 }
 
 #vts-button-content:hover {
-  margin-bottom: -7px;
   opacity: 0.95;
   box-shadow: -1px 0 5px -1px rgba(0, 0, 0, 0.5);
 }
