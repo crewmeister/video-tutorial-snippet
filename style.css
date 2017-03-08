@@ -170,19 +170,47 @@ div#vts-player {
   transform: rotate(-45deg);
 }
 
-#vts-button-container {
+
+
+#vts-outercontainer {
   position: fixed;
+  top: 50%;
   right: 0;
-  bottom: 0;
-  z-index: 10;
-  width: 80px;
-  height: 70px;
+  height: 300px;
+  width: 200px;
+  background: grey;
+  z-index: 1000000;
+  transform: translateY(-50%);
+}
+
+#vts-button-container {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(-90deg) translate(50%, -50%);
+  transform-origin: 100% 50%;
 }
 
 #vts-button-content {
   cursor: pointer;
-  width: 60px;
-  height: 60px;
-  margin: auto;
-  background: no-repeat center/100% url("helpvideos.draft.svg");
+  background: #ff9419;
+  margin-bottom: -10px;
+  padding-bottom: 10px;
+  border-radius: 7px 7px 0 0;
+}
+
+#vts-button-content:hover {
+  margin-bottom: -7px;
+  opacity: 0.95;
+  box-shadow: -1px 0 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+#vts-button-content p {
+  height: 1.8em;
+  line-height: 1.8em;
+  padding: 0 1em;
+  margin: 0;
+  color: white;
+  font-family: "Source Sans Pro", sans-serif;
+  letter-spacing: 0.1ch;
 }

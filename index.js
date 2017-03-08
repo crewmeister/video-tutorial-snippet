@@ -296,12 +296,21 @@
     actions.onOverlayHide();
   }
 
+
+
+
+
+
   function addButton() {
+    let outercontainer = document.createElement('div');
+    outercontainer.id = "vts-outercontainer";
+
     let container = document.createElement('div');
     container.id = "vts-button-container";
 
     let content = document.createElement('div');
     content.id = "vts-button-content";
+    content.innerHTML = "<p>Hilfe</p>";
     content.addEventListener("click", function(event) {
       if(!playerHtmlIsAdded) {
         loadIframeAPI();
@@ -312,8 +321,14 @@
     });
 
     container.appendChild(content);
-    window.document.body.appendChild(container);
+    outercontainer.appendChild(container);
+    window.document.body.appendChild(outercontainer);
   }
+
+
+
+
+
 
   var PLAYLIST = [
     {
@@ -354,8 +369,5 @@
   ];
 
   addCss();
-  //addHtml();
-  //setTimeout(loadIframeAPI, 1000);
-  //setTimeout(showOverlay, 5000);
   addButton();
 })();
