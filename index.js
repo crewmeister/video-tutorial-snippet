@@ -68,7 +68,6 @@
     function playVideo(nextVideoId) {
       videoId = nextVideoId;
       youtubePlayer.loadVideoById(nextVideoId);
-      console.log(this);
       createChapterList(PLAYLIST, playVideo, nextVideoId);
     }
 
@@ -99,7 +98,6 @@
       });
       item.appendChild(link);
       list.appendChild(item);
-      console.log(elem);
     });
 
     var targetElement = document.getElementById("vts-chapters");
@@ -128,7 +126,6 @@
     }
 
     function onVideoPlay(label) {
-      console.log("PLAYING " + label);
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -141,7 +138,6 @@
     }
 
     function onVideoPause(label) {
-      console.log("PAUSE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -154,7 +150,6 @@
     }
 
     function onVideoEnd(label) {
-      console.log("END");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -167,7 +162,6 @@
     }
 
     function onVideoChange(label) {
-      console.log("CHANGE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -179,12 +173,7 @@
       });
     }
 
-    function onPlayerLoaded() {
-      console.log('player loaded');
-    }
-
     function onOverlayShow() {
-      console.log("OVERLAY SHOWN");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -196,7 +185,6 @@
     }
 
     function onOverlayHide() {
-      console.log("OVERLAY HIDDEN");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -212,7 +200,6 @@
       onVideoPause: onVideoPause,
       onVideoEnd: onVideoEnd,
       onVideoChange: onVideoChange,
-      onPlayerLoaded: onPlayerLoaded,
       onOverlayShow: onOverlayShow,
       onOverlayHide: onOverlayHide
     };
@@ -232,7 +219,7 @@
 
   function addCss() {
     //let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
-    let url = 'style.css';
+    let url = 'http://127.0.0.1:9000/style.css';
     let head = window.document.getElementsByTagName('body')[0];
     let link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -241,7 +228,7 @@
     head.appendChild(link);
   }
 
-  function addHtml() {
+  function addPlayerHtml() {
     let container = document.createElement('div');
     container.id = "vts-container";
     container.className = "invisible";
@@ -277,8 +264,6 @@
     container.appendChild(underlay);
     container.appendChild(overlay);
 
-    console.log(container);
-    console.log(document.body);
     window.document.body.appendChild(container);
   }
 
@@ -296,18 +281,16 @@
     actions.onOverlayHide();
   }
 
-
-
-
-
-
-  function addButton() {
+  function addButtonHtml() {
     let outercontainer = document.createElement('div');
     outercontainer.id = "vts-outercontainer";
 
+    outercontainer.addEventListener("click", function(event) {
+      event.stopPropagation();
+    });
 
-    let container = document.createElement('div');
-    container.id = "vts-button-container";
+    let buttoncontainer = document.createElement('div');
+    buttoncontainer.id = "vts-button-container";
 
     let content = document.createElement('div');
     content.id = "vts-button-content";
@@ -315,21 +298,65 @@
     content.addEventListener("click", function(event) {
       if(!playerHtmlIsAdded) {
         loadIframeAPI();
-        addHtml();
+        addPlayerHtml();
         playerHtmlIsAdded = true;
       }
+
+      toggleSidebar();
+    });
+
+    let helpcontent = document.createElement('div');
+    helpcontent.innerHTML = '<a href="" class="vts-linkblock"><h2><span class="icon-youtube-play"></span> Einführungsvideos</h2><p>Lassen sie sich von unserem charmanten Praktikanten Patrick in die Funktionsvielfalt von Crewmeister einführen.</p></a><a href="https://crewmeister.uservoice.com/" target="_blank" class="vts-linkblock"><h2><span class="icon-book"></span> Wissensdatenbank</h2><p>Nach Wissen suchen, heißt Tag für Tag dazu gewinnen.</p></a><a href="#" class="vts-linkblock" id="vts-chatlink"><h2><span class="icon-comments-o"></span> Support-Chat</h2><p>Unsere Katharina ist im Live-Chat erreichbar</p></a>';
+    buttoncontainer.appendChild(content);
+    outercontainer.appendChild(buttoncontainer);
+    outercontainer.appendChild(helpcontent);
+    window.document.body.appendChild(outercontainer);
+
+    let links = helpcontent.getElementsByTagName('a');
+
+    links[0].addEventListener("click", function(event) {
+      event.preventDefault();
+      hideSidebar();
       showOverlay();
     });
 
-    container.appendChild(content);
-    outercontainer.appendChild(container);
-    window.document.body.appendChild(outercontainer);
+    links[1].addEventListener("click", hideSidebar);
+
+    links[2].addEventListener("click", function(event) {
+      event.preventDefault();
+      hideSidebar();
+      SnapEngage.startLink();
+    });
+
+    document.body.addEventListener("click", hideSidebar);
   }
 
+  function toggleSidebar() {
+    if (!document.getElementById("vts-outercontainer").classList.contains('open')) {
+      showSidebar();
+    } else {
+      hideSidebar();
+    }
+  }
 
+  function showSidebar() {
+    document.getElementById("vts-outercontainer").className = "animate open";
+    refreshChatStatus();
+  }
 
+  function hideSidebar() {
+    document.getElementById("vts-outercontainer").className = "animate";
+  }
 
+  function toggleChatOption(online) {
+    document.getElementById("vts-chatlink").style.display = online ? "inherit" : "none";
+  }
 
+  function refreshChatStatus() {
+    SnapEngage.getAgentStatusAsync(function(online) {
+      toggleChatOption(online);
+    });
+  }
 
   var PLAYLIST = [
     {
@@ -370,5 +397,5 @@
   ];
 
   addCss();
-  addButton();
+  addButtonHtml();
 })();

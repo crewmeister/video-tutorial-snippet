@@ -1,5 +1,5 @@
 #vts-underlay {
-  z-index: 11;
+  z-index: 12;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
 
 
 #vts-overlay {
-  z-index: 11;
+  z-index: 12;
   position: fixed;
   top: 0;
   left: 0;
@@ -170,31 +170,42 @@ div#vts-player {
   transform: rotate(-45deg);
 }
 
-
-
 #vts-outercontainer {
   position: fixed;
   top: 50%;
   right: 0;
-  height: 300px;
-  width: 200px;
-  background: grey;
-  z-index: 1000000;
-  transform: translateY(-50%) translateX(100%)
+  background: #FEFCFA;
+  z-index: 11;
+  transform: translateY(-50%) translateX(100%);
+  border: 1px solid #ff9419;
+  min-width: 14em;
+  max-width: 20em;
+  font-size: 1.62rem;
+}
+
+#vts-outercontainer p, #vts-outercontainer h2 {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#vts-outercontainer p {
+  font-size: 1.8rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.4;
 }
 
 #vts-outercontainer.animate {
-  transition: transform 1s ease-in;
+  transition: transform 0.3s ease-in-out;
 }
-#vts-outercontainer.open {
-  transform: translateY(-50%);;
 
+#vts-outercontainer.open {
+  transform: translateY(-50%);
+  box-shadow: 1px 1px 4px 0 rgba(136, 116, 100, 0.25);
 }
 
 #vts-button-container {
   position: absolute;
   top: 50%;
-  right: 100%;
+  right: 100.1%;
   transform: translateY(-50%) rotate(-90deg) translate(50%, -50%);
   transform-origin: 100% 50%;
 }
@@ -205,9 +216,20 @@ div#vts-player {
   border-radius: 7px 7px 0 0;
 }
 
+#vts-button-content {
+  background: linear-gradient(180deg, #ff9419 80%, #d36c00) #ff9419;
+}
+
 #vts-button-content:hover {
-  opacity: 0.95;
+  background: linear-gradient(180deg, #ffa43b 80%, #d36c00) #ffa43b;
+}
+
+#vts-button-content, #vts-button-content:hover, .open #vts-button-content:hover {
   box-shadow: -1px 0 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.open #vts-button-content {
+  box-shadow: none;
 }
 
 #vts-button-content p {
@@ -216,6 +238,41 @@ div#vts-player {
   padding: 0 1em;
   margin: 0;
   color: white;
-  font-family: "Source Sans Pro", sans-serif;
   letter-spacing: 0.1ch;
+}
+
+.vts-linkblock {
+  display: block;
+  color: inherit;
+}
+
+.vts-linkblock {
+  border-top: 1px solid #bcbcbc;
+  padding: 0 0.5em;
+}
+
+.vts-linkblock:first-child {
+  border-top: none;
+}
+
+.vts-linkblock h2 {
+  margin: 0;
+  margin-top: 0.4em;
+  font-size: 1em;
+}
+
+#vts-outercontainer .vts-linkblock p {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+  padding-left: 0.5em;
+  color: #464646;
+}
+
+.vts-linkblock:hover p {
+  color: inherit;
+}
+
+.vts-linkblock [class^="icon-"], .vts-linkblock [class*=" icon-"] {
+  vertical-align: -0.08em;
 }
