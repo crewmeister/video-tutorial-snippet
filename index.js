@@ -462,7 +462,7 @@
       id: "manual",
       title: "Anleitungen und häufig gestellte Fragen",
       description: "Detaillierte Leitfäden zur Funktionsweise von Crewmeister.",
-      link: "https://crewmeister.uservoice.com/"
+      link: "https://crewmeister.uservoice.com/knowledgebase"
     }, {
       id: "chat",
       title: "Live-Chat",
