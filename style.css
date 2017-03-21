@@ -277,3 +277,7 @@ a.vts-linkblock {
 .vts-linkblock [class^="icon-"], .vts-linkblock [class*=" icon-"] {
   vertical-align: -0.08em;
 }
+
+#vts-outercontainer [style] {
+  display: block !important;
+}

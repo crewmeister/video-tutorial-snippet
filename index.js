@@ -349,6 +349,7 @@
 
     let outercontainer = document.createElement('div');
     outercontainer.id = "vts-outercontainer";
+    outercontainer.style.display = "none"; // prevent flash of unstyled content
 
     outercontainer.addEventListener("click", function(event) {
       event.stopPropagation();
