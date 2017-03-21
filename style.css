@@ -258,12 +258,12 @@ a.vts-linkblock {
 
 .vts-linkblock h2 {
   margin: 0;
-  margin-top: 0.4em;
+  margin-top: 0.6em;
   font-size: 1em;
 }
 
 #vts-outercontainer .vts-linkblock p {
-  margin-top: 0;
+  margin-top: 0.4em;
   margin-bottom: 0.5em;
   font-size: 0.9em;
   padding-left: 0.5em;
