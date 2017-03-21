@@ -19,6 +19,7 @@
   };
 
   var player;
+  var playerHtmlIsAdded = false;
 
   // create player instance including YouTube API and analytics integration
   var createPlayer = function(initialVideoId, actions) {
@@ -56,7 +57,6 @@
       if (event.data == YT.PlayerState.CUED) {
         actions.onVideoChange(label);
       }
-      // onVideoShow, onVideoHide
     }
 
     function cueVideo(nextVideoId) {
@@ -67,7 +67,6 @@
     function playVideo(nextVideoId) {
       videoId = nextVideoId;
       youtubePlayer.loadVideoById(nextVideoId);
-      console.log(this);
       createChapterList(PLAYLIST, playVideo, nextVideoId);
     }
 
@@ -98,7 +97,6 @@
       });
       item.appendChild(link);
       list.appendChild(item);
-      console.log(elem);
     });
 
     var targetElement = document.getElementById("vts-chapters");
@@ -111,8 +109,6 @@
     var actions = createActions();
     player = createPlayer(PLAYLIST[0].videoId, actions);
     createChapterList(PLAYLIST, player.playVideo, PLAYLIST[0].videoId);
-
-    actions.onOverlayShow();
   };
 
   // Analytics functions
@@ -123,11 +119,11 @@
       }
       catch(e) {
         console.log("Google Analytics is not readily loaded");
+        console.log("GA", arguments[1]);
       }
     }
 
     function onVideoPlay(label) {
-      console.log("PLAYING " + label);
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -140,7 +136,6 @@
     }
 
     function onVideoPause(label) {
-      console.log("PAUSE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -153,7 +148,6 @@
     }
 
     function onVideoEnd(label) {
-      console.log("END");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -166,7 +160,6 @@
     }
 
     function onVideoChange(label) {
-      console.log("CHANGE");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -178,12 +171,7 @@
       });
     }
 
-    function onPlayerLoaded() {
-      console.log('player loaded');
-    }
-
     function onOverlayShow() {
-      console.log("OVERLAY SHOWN");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
@@ -195,11 +183,68 @@
     }
 
     function onOverlayHide() {
-      console.log("OVERLAY HIDDEN");
       _ga('send', {
         hitType: 'event',
         eventCategory: 'Videos',
         eventAction: 'overlay closed',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarShow() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar opened',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarHide() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar hidden',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarVideos() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'videos',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarManual() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'manual',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarChat() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'chat',
         dimension1: dataset.userid,
         dimension2: dataset.crewid,
         userId: dataset.userid
@@ -211,9 +256,13 @@
       onVideoPause: onVideoPause,
       onVideoEnd: onVideoEnd,
       onVideoChange: onVideoChange,
-      onPlayerLoaded: onPlayerLoaded,
       onOverlayShow: onOverlayShow,
-      onOverlayHide: onOverlayHide
+      onOverlayHide: onOverlayHide,
+      onSidebarShow: onSidebarShow,
+      onSidebarHide: onSidebarHide,
+      onSidebarVideos: onSidebarVideos,
+      onSidebarManual: onSidebarManual,
+      onSidebarChat: onSidebarChat
     };
   }
 
@@ -239,7 +288,7 @@
     head.appendChild(link);
   }
 
-  function addHtml() {
+  function addPlayerHtml() {
     let container = document.createElement('div');
     container.id = "vts-container";
     container.className = "invisible";
@@ -275,29 +324,151 @@
     container.appendChild(underlay);
     container.appendChild(overlay);
 
-    console.log(container);
-    console.log(document.body);
     window.document.body.appendChild(container);
   }
 
   function showOverlay() {
     let container = window.document.getElementById("vts-container");
     container.className = "";
+
+    let actions = createActions();
+    actions.onOverlayShow();
   }
 
   function hideOverlay() {
     let container = window.document.getElementById("vts-container");
     container.className = "invisible";
-
     player.stopVideo();
-
-    setTimeout(function() {
-      window.document.body.removeChild(container);
-    }, 300);
 
     let actions = createActions();
     actions.onOverlayHide();
   }
+
+  function addButtonHtml() {
+    let actions = createActions();
+
+    let outercontainer = document.createElement('div');
+    outercontainer.id = "vts-outercontainer";
+
+    outercontainer.addEventListener("click", function(event) {
+      event.stopPropagation();
+    });
+
+    let buttoncontainer = document.createElement('div');
+    buttoncontainer.id = "vts-button-container";
+
+    let content = document.createElement('div');
+    content.id = "vts-button-content";
+    content.innerHTML = "<p>Hilfe</p>";
+    content.addEventListener("click", function(event) {
+      if(!playerHtmlIsAdded) {
+        loadIframeAPI();
+        addPlayerHtml();
+        playerHtmlIsAdded = true;
+      }
+
+      toggleSidebar();
+    });
+
+    let helpcontent = document.createElement('div');
+    helpcontent.innerHTML = '<a href="" class="vts-linkblock"><h2><span class="icon-youtube-play"></span> ' + TEXTS[0].title + '</h2><p>' + TEXTS[0].description + '</p></a><a href="' + TEXTS[1].link + '" target="_blank" class="vts-linkblock"><h2><span class="icon-book"></span> ' + TEXTS[1].title + '</h2><p>' + TEXTS[1].description + '</p></a><a href="#" class="vts-linkblock" id="vts-chatlink"><h2><span class="icon-comments-o"></span> ' + TEXTS[2].title + '</h2><p>' + TEXTS[2].description + '</p></a>';
+    buttoncontainer.appendChild(content);
+    outercontainer.appendChild(buttoncontainer);
+    outercontainer.appendChild(helpcontent);
+    window.document.body.appendChild(outercontainer);
+
+    let links = helpcontent.getElementsByTagName('a');
+
+    links[0].addEventListener("click", function(event) {
+      actions.onSidebarVideos();
+
+      event.preventDefault();
+      hideSidebar();
+      showOverlay();
+    });
+
+    links[1].addEventListener("click", function(event) {
+      actions.onSidebarManual();
+      hideSidebar();
+    });
+
+    links[2].addEventListener("click", function(event) {
+      actions.onSidebarChat();
+
+      event.preventDefault();
+      hideSidebar();
+      try {
+        SnapEngage.startLink();
+      }
+      catch(e) {
+        console.log("SnapEngage is not loaded");
+      }
+    });
+
+    document.body.addEventListener("click", hideSidebar);
+
+    refreshChatStatus();
+  }
+
+  function toggleSidebar() {
+    if (!document.getElementById("vts-outercontainer").classList.contains('open')) {
+      showSidebar();
+    } else {
+      hideSidebar();
+    }
+  }
+
+  function showSidebar() {
+    document.getElementById("vts-outercontainer").className = "animate open";
+    refreshChatStatus();
+
+    let actions = createActions();
+    actions.onSidebarShow();
+  }
+
+  function hideSidebar() {
+    document.getElementById("vts-outercontainer").className = "animate";
+
+    let actions = createActions();
+    actions.onSidebarHide();
+  }
+
+  function toggleChatOption(online) {
+    document.getElementById("vts-chatlink").style.display = online ? "inherit" : "none";
+  }
+
+  function refreshChatStatus() {
+    try {
+      SnapEngage.getAgentStatusAsync(function(online) {
+        toggleChatOption(online);
+      });
+    }
+    catch(e) {
+      console.log("SnapEngage is not loaded");
+    }
+  }
+
+  function refreshChatStatusEveryMinutes(minutes) {
+    setInterval(refreshChatStatus, minutes * 60 * 1000);
+  }
+
+  var TEXTS = [
+    {
+      id: "videos",
+      title: "Einführungsvideos",
+      description: "Die wichtigsten Crewmeister Funktionen als Video-Tutorial."
+    },
+    {
+      id: "manual",
+      title: "Anleitungen und häufig gestellte Fragen",
+      description: "Detaillierte Leitfäden zur Funktionsweise von Crewmeister.",
+      link: "https://crewmeister.uservoice.com/"
+    }, {
+      id: "chat",
+      title: "Live-Chat",
+      description: "Sie haben eine unbeantwortete Frage?<br>Kontaktieren Sie unseren Kundenservice im Live-Chat."
+    }
+  ];
 
   var PLAYLIST = [
     {
@@ -337,10 +508,7 @@
     }
   ];
 
-  /*
   addCss();
-  addHtml();
-  setTimeout(loadIframeAPI, 1000);
-  setTimeout(showOverlay, 5000);
-  */
+  addButtonHtml();
+  refreshChatStatusEveryMinutes(5);
 })();
