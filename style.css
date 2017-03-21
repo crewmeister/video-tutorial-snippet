@@ -278,6 +278,6 @@ a.vts-linkblock {
   vertical-align: -0.08em;
 }
 
-#vts-outercontainer [style] {
+#vts-outercontainer[style] {
   display: block !important;
 }
