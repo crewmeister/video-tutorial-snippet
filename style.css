@@ -244,15 +244,16 @@ div#vts-player {
 .vts-linkblock {
   display: block;
   color: inherit;
-}
-
-.vts-linkblock {
-  border-top: 1px solid #bcbcbc;
   padding: 0 0.5em;
+  border-top: 1px solid #bcbcbc;
 }
 
 .vts-linkblock:first-child {
   border-top: none;
+}
+
+a.vts-linkblock {
+  text-decoration: none;
 }
 
 .vts-linkblock h2 {

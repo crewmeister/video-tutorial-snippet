@@ -110,8 +110,6 @@
     var actions = createActions();
     player = createPlayer(PLAYLIST[0].videoId, actions);
     createChapterList(PLAYLIST, player.playVideo, PLAYLIST[0].videoId);
-
-    actions.onOverlayShow();
   };
 
   // Analytics functions
@@ -122,6 +120,7 @@
       }
       catch(e) {
         console.log("Google Analytics is not readily loaded");
+        console.log("GA", arguments[1]);
       }
     }
 
@@ -195,13 +194,76 @@
       });
     }
 
+    function onSidebarShow() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar opened',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarHide() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar hidden',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarVideos() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'videos',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarManual() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'manual',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
+    function onSidebarChat() {
+      _ga('send', {
+        hitType: 'event',
+        eventCategory: 'Help',
+        eventAction: 'sidebar selection',
+        eventLabel: 'chat',
+        dimension1: dataset.userid,
+        dimension2: dataset.crewid,
+        userId: dataset.userid
+      });
+    }
+
     return {
       onVideoPlay: onVideoPlay,
       onVideoPause: onVideoPause,
       onVideoEnd: onVideoEnd,
       onVideoChange: onVideoChange,
       onOverlayShow: onOverlayShow,
-      onOverlayHide: onOverlayHide
+      onOverlayHide: onOverlayHide,
+      onSidebarShow: onSidebarShow,
+      onSidebarHide: onSidebarHide,
+      onSidebarVideos: onSidebarVideos,
+      onSidebarManual: onSidebarManual,
+      onSidebarChat: onSidebarChat
     };
   }
 
@@ -270,6 +332,9 @@
   function showOverlay() {
     let container = window.document.getElementById("vts-container");
     container.className = "";
+
+    let actions = createActions();
+    actions.onOverlayShow();
   }
 
   function hideOverlay() {
@@ -282,6 +347,8 @@
   }
 
   function addButtonHtml() {
+    let actions = createActions();
+
     let outercontainer = document.createElement('div');
     outercontainer.id = "vts-outercontainer";
 
@@ -306,7 +373,7 @@
     });
 
     let helpcontent = document.createElement('div');
-    helpcontent.innerHTML = '<a href="" class="vts-linkblock"><h2><span class="icon-youtube-play"></span> Einführungsvideos</h2><p>Lassen sie sich von unserem charmanten Praktikanten Patrick in die Funktionsvielfalt von Crewmeister einführen.</p></a><a href="https://crewmeister.uservoice.com/" target="_blank" class="vts-linkblock"><h2><span class="icon-book"></span> Wissensdatenbank</h2><p>Nach Wissen suchen, heißt Tag für Tag dazu gewinnen.</p></a><a href="#" class="vts-linkblock" id="vts-chatlink"><h2><span class="icon-comments-o"></span> Support-Chat</h2><p>Unsere Katharina ist im Live-Chat erreichbar</p></a>';
+    helpcontent.innerHTML = '<a href="" class="vts-linkblock"><h2><span class="icon-youtube-play"></span> ' + TEXTS[0].title + '</h2><p>' + TEXTS[0].description + '</p></a><a href="' + TEXTS[1].link + '" target="_blank" class="vts-linkblock"><h2><span class="icon-book"></span> ' + TEXTS[1].title + '</h2><p>' + TEXTS[1].description + '</p></a><a href="#" class="vts-linkblock" id="vts-chatlink"><h2><span class="icon-comments-o"></span> ' + TEXTS[2].title + '</h2><p>' + TEXTS[2].description + '</p></a>';
     buttoncontainer.appendChild(content);
     outercontainer.appendChild(buttoncontainer);
     outercontainer.appendChild(helpcontent);
@@ -315,20 +382,34 @@
     let links = helpcontent.getElementsByTagName('a');
 
     links[0].addEventListener("click", function(event) {
+      actions.onSidebarVideos();
+
       event.preventDefault();
       hideSidebar();
       showOverlay();
     });
 
-    links[1].addEventListener("click", hideSidebar);
+    links[1].addEventListener("click", function(event) {
+      actions.onSidebarManual();
+      hideSidebar();
+    });
 
     links[2].addEventListener("click", function(event) {
+      actions.onSidebarChat();
+
       event.preventDefault();
       hideSidebar();
-      SnapEngage.startLink();
+      try {
+        SnapEngage.startLink();
+      }
+      catch(e) {
+        console.log("SnapEngage is not loaded");
+      }
     });
 
     document.body.addEventListener("click", hideSidebar);
+
+    refreshChatStatus();
   }
 
   function toggleSidebar() {
@@ -342,10 +423,16 @@
   function showSidebar() {
     document.getElementById("vts-outercontainer").className = "animate open";
     refreshChatStatus();
+
+    let actions = createActions();
+    actions.onSidebarShow();
   }
 
   function hideSidebar() {
     document.getElementById("vts-outercontainer").className = "animate";
+
+    let actions = createActions();
+    actions.onSidebarHide();
   }
 
   function toggleChatOption(online) {
@@ -353,10 +440,37 @@
   }
 
   function refreshChatStatus() {
-    SnapEngage.getAgentStatusAsync(function(online) {
-      toggleChatOption(online);
-    });
+    try {
+      SnapEngage.getAgentStatusAsync(function(online) {
+        toggleChatOption(online);
+      });
+    }
+    catch(e) {
+      console.log("SnapEngage is not loaded");
+    }
   }
+
+  function refreshChatStatusEveryMinutes(minutes) {
+    setInterval(refreshChatStatus, minutes * 60 * 1000);
+  }
+
+  var TEXTS = [
+    {
+      id: "videos",
+      title: "Einführungsvideos",
+      description: "Die wichtigsten Crewmeister Funktionen als Video-Tutorial."
+    },
+    {
+      id: "manual",
+      title: "Anleitungen und häufig gestellte Fragen",
+      description: "Detaillierte Leitfäden zur Funktionsweise von Crewmeister.",
+      link: "https://crewmeister.uservoice.com/"
+    }, {
+      id: "chat",
+      title: "Live-Chat",
+      description: "Sie haben eine unbeantwortete Frage?<br>Kontaktieren Sie unseren Kundenservice im Live-Chat."
+    }
+  ];
 
   var PLAYLIST = [
     {
@@ -398,4 +512,5 @@
 
   addCss();
   addButtonHtml();
+  refreshChatStatusEveryMinutes(5);
 })();
