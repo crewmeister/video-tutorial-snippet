@@ -57,7 +57,6 @@
       if (event.data == YT.PlayerState.CUED) {
         actions.onVideoChange(label);
       }
-      // onVideoShow, onVideoHide
     }
 
     function cueVideo(nextVideoId) {
@@ -280,8 +279,7 @@
   }
 
   function addCss() {
-    //let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
-    let url = 'http://127.0.0.1:9000/style.css';
+    let url = 'https://crewmeister.github.io/video-tutorial-snippet/style.css';
     let head = window.document.getElementsByTagName('body')[0];
     let link = document.createElement('link');
     link.rel = 'stylesheet';
