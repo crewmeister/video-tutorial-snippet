@@ -35,7 +35,6 @@
       width: '640',
       videoId: videoId,
       events: {
-        onReady: actions.onPlayerLoaded,
         onStateChange: onPlayerStateChange
       }
     });
