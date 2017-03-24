@@ -405,7 +405,11 @@
       }
     });
 
-    document.body.addEventListener("click", hideSidebar);
+    document.body.addEventListener("click", function() {
+      if (document.getElementById("vts-outercontainer").classList.contains('open')) {
+        hideSidebar();
+      }
+    });
 
     refreshChatStatus();
   }
