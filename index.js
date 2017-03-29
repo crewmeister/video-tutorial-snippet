@@ -1,4 +1,6 @@
 (function() {
+  if (!!window.cordova) return;
+
   function getScriptDataset() {
     if ("currentScript" in document) {
       return document.currentScript.dataset;
