@@ -1,5 +1,11 @@
 (function() {
-  if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) return;
+  var dontShowHelp = false;
+  document.addEventListener("deviceready", function() {
+    if (!!window.cordova) {
+      dontShowHelp = true;
+      removeButtonHtml();
+    }
+  });
 
   function getScriptDataset() {
     if ("currentScript" in document) {
@@ -346,6 +352,8 @@
   }
 
   function addButtonHtml() {
+    if (dontShowHelp) return;
+
     let actions = createActions();
 
     let outercontainer = document.createElement('div');
@@ -414,6 +422,13 @@
     });
 
     refreshChatStatus();
+  }
+
+  function removeButtonHtml() {
+    try {
+      let elem = document.getElementById("vts-outercontainer");
+      elem.parentNode.removeChild(elem);
+    } catch(e) {}
   }
 
   function toggleSidebar() {
