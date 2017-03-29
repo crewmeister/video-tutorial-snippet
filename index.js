@@ -1,5 +1,5 @@
 (function() {
-  if (!!window.cordova) return;
+  if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) return;
 
   function getScriptDataset() {
     if ("currentScript" in document) {
