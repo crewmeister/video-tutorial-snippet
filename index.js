@@ -1,5 +1,5 @@
 (function() {
-  if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|\(Crewmeister Cordova\)/i)) return;
+  if (navigator.userAgent.match(/\(Crewmeister Cordova\)/i)) return;
 
   function getScriptDataset() {
     if ("currentScript" in document) {
