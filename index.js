@@ -350,6 +350,7 @@
 
     let outercontainer = document.createElement('div');
     outercontainer.id = "vts-outercontainer";
+    outercontainer.setAttribute('data-tour-id', 'help');
     outercontainer.style.display = "none"; // prevent flash of unstyled content
 
     outercontainer.addEventListener("click", function(event) {
